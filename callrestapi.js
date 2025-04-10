@@ -1,4 +1,4 @@
-val url= "https://mysql-restapi-zgy2.onrender.com";
+val url= "https://mysql-restapi-zgy2.onrender.com/api/users";
 function postUser() {
 
     console.log(url);
