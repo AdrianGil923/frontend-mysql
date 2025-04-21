@@ -1,36 +1,200 @@
-<p>
-  Consumo de REST-API de Usuarios
-</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <style>
+        /* Estilos globales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige elegante */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-<div>
-  <label>Name </label>
-  <input type="text" id="name">
-</div>
-<div>
-  <label>Email </label>
-  <input type="text" id="email">
-</div>
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-<div>
-  <label>Age </label>
-  <input type="text" id="age">
-</div>
+        /* Contenedor principal */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
 
-<div>
-  <label>Comments </label>
-  <input type="text" id="comments">
-</div>
+        .container div {
+            margin-bottom: 15px;
+        }
 
-<button onclick="postUser()"> POST user </button>
+        /* Estilos para los inputs y etiquetas */
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-<button onclick="getUsers()"> GET usuarios </button>
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-<div id="resultado"></div>
+        /* Botones */
+        button {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="callrestapi.js"></script>
+        /* Botón para crear usuario */
+        button:nth-child(1) {
+            background-color: #4CAF50; /* Verde */
+        }
 
+        /* Botón para obtener usuarios */
+        button:nth-child(2) {
+            background-color: #007BFF; /* Azul */
+        }
+
+        /* Botón para buscar usuario por ID */
+        button:nth-child(3) {
+            background-color: #FFC107; /* Amarillo dorado */
+        }
+
+        /* Botón para actualizar usuario */
+        button:nth-child(4) {
+            background-color: #FF5722; /* Rojo anaranjado */
+        }
+
+        /* Botón para eliminar usuario */
+        button:nth-child(5) {
+            background-color: #f44336; /* Rojo */
+        }
+
+        /* Efecto hover de los botones para ponerlos en rojo */
+        button:hover {
+            background-color: #f44336; /* Rojo */
+        }
+
+        /* Resultado */
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        /* Estilo responsivo */
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Usuarios</h1>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Formulario para crear o actualizar usuario -->
+        <div>
+            <label for="userId">ID del Usuario (para actualizar o eliminar):</label>
+            <input type="text" id="userId" placeholder="Ingrese ID de usuario">
+        </div>
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" placeholder="Ingrese el nombre">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Ingrese el email">
+        </div>
+        <div>
+            <label for="age">Edad:</label>
+            <input type="text" id="age" placeholder="Ingrese la edad">
+        </div>
+        <div>
+            <label for="comments">Comentarios:</label>
+            <input type="text" id="comments" placeholder="Ingrese comentarios">
+        </div>
+
+        <!-- Botones para interactuar con la API -->
+ <!-- Formulario para crear o actualizar usuario -->
+        <div>
+            <label for="userId">ID del Usuario (para actualizar o eliminar):</label>
+            <input type="text" id="userId" placeholder="Ingrese ID de usuario">
+        </div>
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" placeholder="Ingrese el nombre">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Ingrese el email">
+        </div>
+        <div>
+            <label for="age">Edad:</label>
+            <input type="text" id="age" placeholder="Ingrese la edad">
+        </div>
+        <div>
+            <label for="comments">Comentarios:</label>
+            <input type="text" id="comments" placeholder="Ingrese comentarios">
+        </div>
+
+        <!-- Botones para interactuar con la API -->
+        <button onclick="postUser()">Crear</button>
+        <button onclick="getUsers()">Obtener Todos</button>
+        <button onclick="getUserById()">Buscar Usuario</button>
+        <button onclick="updateUser()">Actualizar Usuario</button>
+        <button onclick="deleteUser()">Eliminar</button>
+    </div>
+        <button onclick="postUser()">Crear</button>
+        <button onclick="getUsers()">Obtener Todos</button>
+        <button onclick="getUserById()">Buscar Usuario</button>
+        <button onclick="updateUser()">Actualizar Usuario</button>
+        <button onclick="deleteUser()">Eliminar</button>
+    </div>
+
+    <!-- Área para mostrar los resultados -->
+    <div id="resultado"></div>
+
+    <!-- Incluir jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Incluir tu archivo callrestapi.js -->
+    <script src="callrestapi.js"></script>
 </body>
 </html>
-
 
