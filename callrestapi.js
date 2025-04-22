@@ -10,18 +10,20 @@ function postUser() {
     };
 
     $.ajax({
-        url: url,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(myUser),
-        success: function (data) {
-            $('#resultado').html('Usuario creado: ' + JSON.stringify(data.user));
-        },
-        error: function (xhr) {
-            $('#resultado').html('Error al crear usuario: ' + xhr.responseText);
-        }
-    });
+    url: url,
+    type: 'POST',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(myUser),
+    success: function (data) {
+        // Solo muestra el mensaje "Usuario creado con éxito"
+        $('#resultado').html('Usuario creado con éxito');
+    },
+    error: function (xhr) {
+        $('#resultado').html('Error al crear usuario: ' + xhr.responseText);
+    }
+});
+
 }
 
 // Obtener todos los usuarios (GET)
